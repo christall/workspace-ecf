@@ -1,0 +1,57 @@
+> ⚠ Les entrées dont le fichier n'existe pas sont des mémoires perdues avec le home du conteneur (cf. [Emplacement durable des mémoires](reference_memoire_emplacement_durable.md)) : l'accroche d'une ligne est tout ce qui reste — ne pas supprimer, réécrire si le sujet redevient actuel.
+
+- [Scission des workspaces (26/11/2026)](project_workspace_split_20261126.md) — ici = ECF uniquement ; nettoyage fait, dépôt workspace-ecf + clé SSH en place ; restes = routeur à réinstaller, commit initial/push
+- [No phone outreach](feedback_no_phone_outreach.md) — never suggest calling prospects/contacts, even as the fastest/only channel; written channels only, his durable preference
+- [Verify before asserting in long sessions](feedback_verify_before_asserting_long_sessions.md) — momentum erodes rigor; compacting doesn't fix it, checking does
+- [Memory vs CLAUDE.md separation](feedback_memory_vs_claudemd_separation.md) — codebase facts → CLAUDE.md, user/workflow facts → memory, never both
+- [Don't rely on user's recollection either](feedback_dont_rely_on_user_recollection.md) — user self-assesses as unreliable on complex topics; verify their claims too, not just mine
+- [Ask before interpreting scope](feedback_ask_before_interpreting_scope.md) — general-category requests ("le code dangereux") get silently interpreted instead of clarified; state interpretation or ask BEFORE acting
+- [Be more conflictual, less consensual](feedback_be_more_conflictual.md) — voice "I didn't understand" / name candidate interpretations openly, don't silently pick one; verify AND challenge, not one or the other
+- [Autonomous execution on defaults](feedback_autonomous_execution_defaults.md) — decide implementation details unprompted, flag in summary; only ask when it's genuinely his call
+- [Verb choice signals scope](feedback_verb_choice_signals_scope.md) — "étudie" = analysis only, no writes; "corrige"/"fait"/"lance" = execute now. Confirmed pattern, not a guess.
+- [PlanniFProWeb audit response](project_plannifproweb_audit_response.md) — SEC-1..12 status; resume with "reprends l'audit PlanniFProWeb"; next = SEC-9
+- [Audit fixes: investigate then list risks](feedback_audit_fix_investigate_then_test.md) — grep real callers before restrict/remove; always end with risks-to-test-before-prod
+- [Don't offload memory to user](feedback_dont_offload_memory_to_user.md) — "garde en tête que X" is wrong; write X to CLAUDE.md/memory, that's Claude's job to recall, not the user's
+- [French rule: tool descriptions AND prose](feedback_french_includes_tool_descriptions.md) — 6 recurrences; #6 (06/11) again only tool-call descriptions drifted — check each one as written, not just the final reply
+- [Infra tradeoffs beyond user](feedback_infra_tradeoffs_beyond_user.md) — declines Docker/infra-internals tradeoffs even when only he knows the answer; decide-and-flag instead of asking
+- [Fusion gp8801/gp8803 status](project_fusion_gp8801_gp8803.md) — TERMINÉE 31/08/2026 en prod ; ne plus jamais relancer les scripts de fusion sur gp8801
+- [Scenario review, not just static](feedback_scenario_review_not_just_static.md) — for migrations/integrations, simulate incidents, don't just check doc consistency
+- [Handoff when env lacks capability](feedback_handoff_when_env_lacks_capability.md) — don't assume: recette MySQL IS reachable directly (corrected 04/11, was wrongly assumed blocked); prod still out of scope; no Docker/mysqld still true
+- [Neutralisation prod 4102/gp4101](project_neutralisation_prod_4102_gp4101.md) — 263/263 validés en recette 2026-09-14, scripts prêts, exécution prod à la charge de Christophe
+- [sources/ edits aren't deployed](feedback_sources_edits_not_deployed.md) — editing sources/ here ≠ live on recette/prod; Christophe deploys manually, hit twice same session (anonymisation, fusion script)
+- [GPLearn fusion gp1301→gp1302](project_gplearn_fusion_gp1301_gp1302.md) — TGD clos 06/11 (backlog mineur) ; remises banque 1301 : corrigé recette+prod 16/11, chantier clos
+- [Backup before editing unreadable files](feedback_backup_before_editing_unreadable_files.md) — sed on a Claude-unreadable prod .env wiped nearly the whole file; always have user snapshot first
+- [User prefers internal mastery](user_prefers_internal_mastery.md) — chooses building/owning a system over delegating to an opaque third-party tool, even at multi-week cost
+- [Outbound drafts get sent immediately](feedback_outbound_drafts_get_sent_immediately.md) — a copy-ready draft is a decision, not a proposal; ask shaping questions before, not after
+- [Compta: Excel décode en CP932](project_compta_excel_cp932.md) — faux « décalage de colonnes » sur les exports Sage ouverts chez Éléonore ; contrôler le fichier brut avant de suspecter la génération
+- [No self-declared honesty in copy](feedback_no_self_declared_honesty.md) — "honnêtement"/"en toute transparence" read as a sales tell to Christophe; let facts carry it, any project
+- [Enumerate what a guard blocked](feedback_enumerate_what_a_guard_blocked.md) — relaxing a guard needs every blocked state listed; my 30/09 Nevea fix turned a read panne into mass unsubscribe
+- [Une livraison inclut le déploiement](feedback_livraison_inclut_deploiement.md) — « poussé sur la vm ? » 23/10 : si ça tourne en prod et que j'ai l'accès, déployer et vérifier avant d'annoncer, ne pas sortir le patch du périmètre
+- [Emplacement durable des mémoires](reference_memoire_emplacement_durable.md) — banc ECF-only dans /workspace/.claude/… (git) depuis le 26/11 ; /root/.claude/… est effacé à chaque rebuild d'image
+- [GLPI 13179 : regroupement Sage GPLearn](project_glpi13179_sage_regroupement.md) — 10/11 : vrai bug trouvé (Sage ignore Sens des lignes A, il faut Sens=G+signe négatif) corrigé en local PRD, pas commité ; VT confirmé non concerné (pas d'agrégation multi-lignes)
+- [EtatEcartsTTCSage — agence d'inscription](project_etatecartsttcsage_agence_inscription.md) — corrigé ET déployé (confirmé 09/11 par diff sur origin/production) ; détail dans sources/GPLearn/CLAUDE.md
+- [Nevea — Point compta Éléonore 13/10](project_nevea_pointcompta_1310.md) — 3/4 corrigés en local 18/11 (banques 1910, PRNV, agence gp1620 via comptable/agence_pri) ; IBAN hors périmètre
+- [Chantier PHP8 GPLearn](project_gplearn_php8_chantier.md) — reprise : `sources/GPLearn/REPRISE-20261030.md` ; branche poussée sur origin, Drive en cours de migration, FICHES_RENS_DIR toujours en attente
+- [Recensement PHP8.5 généralisé](project_php85_recensement_general.md) — reprise : `sources/RECENSEMENT-PHP8.5.md` ; 7 apps, ecfcerca_ecom hors périmètre, PlanniFProWeb/ecfcoach_back incomplets
+- [Carte des dossiers ECF](reference_carte_dossiers_workspace.md) — périmètre ECF seul depuis la scission du 26/11 ; rôle des dossiers, règles sources/ (jamais commité ici) et frontière avec l'autre workspace perso
+- [Workspace partagé : 3 outils, 3 Docker](reference_workspace_partage_3_outils.md) — Claude Code + Codex + OpenCode écrivent le même /workspace, même .git, même banc mémoire → relire avant éditer, jamais reset/clean/add -A, ne pas supprimer le travail d'un autre
+
+<!-- Mémoires présentes sur disque mais jamais indexées (pointeurs ajoutés le 26/10/2026) -->
+- [Profil utilisateur](user_profil.md) — développeur GPLearn (PHP/MySQL) chez ECF-CERCA, travaille en français, préfère sauvegarder en local plutôt que via git
+- [Pas de demande de confirmation systématique](feedback_confirmations.md) — procéder directement ; sauf destructeur irréversible ET git commit/push (ajouté 10/11, demander avant, tout dépôt)
+- [CLAUDE.md n'est pas une source factuelle](feedback_claudemd_not_a_factual_source.md) — un chiffre publié se source sur primaire (daté) ou se neutralise ; notes internes ≠ preuve
+- [Connexion MySQL GPLearn](references/mysql_connection.md) — recette 192.168.1.130, user proc_stock (claude_agent mort le 19/11/2026)
+- [Base vierge gp3301 (Bordeaux)](project_gp3301_base_vierge.md) — créée recette 19/11/2026 depuis gp3101 + 5 groupes génériques (Bordeaux/Responsable/Secrétaire/Moniteur resserré/GP_Support) ; reste : choix par défaut à valider, utilisateurs à créer
+- [Base vierge gp2804](project_gp2804_base_vierge.md) — créée recette 24/11/2026 par copie de gp3301 (1 script, variante simple) ; nom d'agence par défaut à ajuster ; manuel METHODE-BASE-VIERGE.md § 7-bis
+- [Audit auth AD GPLearn 23/11](project_gplearn_audit_auth_ad_2311.md) — ldap_bind vide corrigé (EtatEcartsTTCSage.php, non commité) ; guillaume.magne a GP_Support/ACF dans 18 bases ; faille sérieuse trouvée : dts_gu sans contrôle de droit serveur (non corrigée)
+- [MCD GPLearn](references/mcd_gplearn.md) — MCD complet : architecture multi-bases, entités, relations, points clés de conception
+- [MCD fplearn](references/mcd_fplearn.md) — CRM Formation Professionnelle : entités, liaisons, systèmes externes (NEVEA, PlanniFPro, GPLearn, Formagest, ArganClient)
+- [MCD plgfpro](references/mcd_plgfpro.md) — planning formateurs FP : compétences, heures, synchro CDC (rdrd_*/udrd_*), intégrations NEVEA/Formagest
+- [Projet GPLearn](projects/gplearn.md) — application PHP/MySQL de gestion d'auto-école, structure et modules clés
+- [Projet ecfcerca_ecom](projects/ecfcerca_ecom.md) — site e-commerce : tunnel de paiement, middle office entreprises/blocs, thèmes, webhooks
+- [Bugs facturation GPLearn](projects/facturation_bugs.md) — 4 dysfonctionnements : localisation, causes, pistes de correction
+- [Bug PIST qte=0 — RÉSOLU](bugs/pist_qte0.md) — cause réelle : agence 7925 décochée comptable → collision de clé unique sur 7901
+- [Canaliser l'impatience de Christophe](feedback_canaliser_impatience_utilisateur.md) — permission explicite de dire « attendons » et de signaler ses approximations (24/11)
+- [ECT-359 agence inscription gpfp](project_ect359_agence_inscription.md) — CODÉ 25/11 non déployé : agenceinsc = site d'affectation Névéa (4105=Blois) via pfp_nevea_site→sites.agence ; reprise : `sources/PlanniFProWeb/REPRISE-ECT359-20261126.md`
+- [API Tempo (feuille de temps)](reference_tempo_api.md) — token dans sources/Echanges_claude_code/, api.eu.tempo.io/4, piège issueId numérique, conventions am/pm + report des jours de congé
+- [Lien Sage cassé par PHP 7.4→8.5](project_lien_sage_php85.md) — sqlsrv PECL à réinstaller sur la VM Prod ; ticket **ECT-490** (enfant d'ECT-476, assigné Christophe) créé 26/11 ; exécution à sa charge, vérifier à la reprise

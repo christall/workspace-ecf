@@ -1,0 +1,15 @@
+const initSqlJs = require('sql.js')
+const fs = require('fs')
+initSqlJs().then(SQL => {
+  const db = new SQL.Database(fs.readFileSync('/app/db/erp.db'))
+  const run = sql => { try { return db.exec(sql)[0]?.values ?? [] } catch(e) { return [`ERREUR: ${e.message}`] } }
+  console.log('=== DIAGNOSTIC ERP ===')
+  console.log('Franchises:', run('SELECT code, id FROM franchises'))
+  console.log('Utilisateurs:', run('SELECT email, franchise_id FROM utilisateurs'))
+  console.log('Personnes:', run('SELECT franchise_id, source_base, COUNT(*) as n FROM personnes GROUP BY franchise_id, source_base'))
+  console.log('Créneaux:', run('SELECT franchise_id, MIN(date) as min, MAX(date) as max, COUNT(*) as n FROM creneaux GROUP BY franchise_id'))
+  console.log('Factures:', run('SELECT franchise_id, MIN(date) as min, MAX(date) as max, COUNT(*) as n FROM factures GROUP BY franchise_id'))
+  console.log('Conventions:', run('SELECT franchise_id, COUNT(*) as n FROM conventions GROUP BY franchise_id'))
+  console.log('Tables:', run("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name"))
+  db.close()
+})

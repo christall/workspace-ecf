@@ -1,0 +1,176 @@
+# Claude Code Model Router — Configuration
+# ==========================================
+
+# --- Providers ----------------------------------------------------------
+providers:
+  # Provider OAuth lié à l'abonnement Claude Pro — pas de surcoût
+  claude-pro:
+    label: "Claude Pro (OAuth)"
+    base_url: "https://api.anthropic.com"
+    api_key_env: "CLAUDE_PRO_OAUTH_TOKEN"
+    format: "anthropic"
+    auth_header: "authorization"   # Bearer $TOKEN (OAuth, pas x-api-key)
+    anthropic_version: "2023-06-01"
+
+  # Fallback avec clé API classique (consomme des crédits — déprécié)
+  anthropic:
+    label: "Anthropic (API Key)"
+    base_url: "https://api.anthropic.com"
+    api_key_env: "ANTHROPIC_API_KEY"
+    format: "anthropic"
+    auth_header: "x-api-key"
+    anthropic_version: "2023-06-01"
+
+  deepseek:
+    label: "DeepSeek"
+    base_url: "https://api.deepseek.com/anthropic"
+    api_key_env: ["DEEPSEEK_API_KEY", "ANTHROPIC_AUTH_TOKEN"]  # Claude Code uses ANTHROPIC_AUTH_TOKEN
+    format: "anthropic"           # DeepSeek exposes Anthropic-compatible endpoint
+    auth_header: "x-api-key"
+    anthropic_version: "2023-06-01"
+
+  openai:
+    label: "OpenAI"
+    base_url: "https://api.openai.com/v1"
+    api_key_env: "OPENAI_API_KEY"
+    format: "openai"              # OpenAI Chat Completions (needs translation)
+    auth_header: "authorization"  # Bearer $TOKEN
+
+  groq:
+    label: "Groq"
+    base_url: "https://api.groq.com/openai/v1"
+    api_key_env: "GROQ_API_KEY"
+    format: "openai"              # OpenAI-compatible (needs translation)
+    auth_header: "authorization"  # Bearer $TOKEN
+
+  mistral:
+    label: "Mistral"
+    base_url: "https://api.mistral.ai/v1"
+    api_key_env: "MISTRAL_API_KEY"
+    format: "openai"              # OpenAI-compatible (needs translation)
+    auth_header: "authorization"  # Bearer $TOKEN
+
+# --- Model registry -----------------------------------------------------
+# Maps model names (what Claude Code sends) to (provider, provider_model, tier)
+models:
+  # DeepSeek
+  deepseek-v4-pro:
+    provider: deepseek
+    provider_model: "deepseek-v4-pro"
+    tier: sonnet
+  deepseek-v4-flash:
+    provider: deepseek
+    provider_model: "deepseek-v4-flash"
+    tier: haiku
+
+  # Anthropic native — Fable / Mythos / Opus
+  claude-fable-4:
+    provider: anthropic
+    provider_model: "claude-fable-4"
+    tier: opus
+  claude-fable-5:
+    provider: anthropic
+    provider_model: "claude-fable-5"
+    tier: opus
+  claude-opus-4-8:
+    provider: anthropic
+    provider_model: "claude-opus-4-8"
+    tier: opus
+  claude-opus-5:
+    provider: anthropic
+    provider_model: "claude-opus-5"
+    tier: opus
+  claude-sonnet-5:
+    provider: anthropic
+    provider_model: "claude-sonnet-5"
+    tier: sonnet
+  claude-haiku-4-5:
+    provider: anthropic
+    provider_model: "claude-haiku-4-5"
+    tier: haiku
+  claude-haiku-4-5-20251001:
+    provider: anthropic
+    provider_model: "claude-haiku-4-5-20251001"
+    tier: haiku
+
+  # OpenAI
+  gpt-4o:
+    provider: openai
+    provider_model: "gpt-4o"
+    tier: sonnet
+  gpt-4o-mini:
+    provider: openai
+    provider_model: "gpt-4o-mini"
+    tier: haiku
+
+  # Groq (Llama & others)
+  "openai/gpt-oss-120b":
+    provider: groq
+    provider_model: "openai/gpt-oss-120b"
+    tier: sonnet
+
+  # Mistral
+  mistral-small-latest:
+    provider: mistral
+    provider_model: "mistral-small-latest"
+    tier: haiku
+  mistral-large-latest:
+    provider: mistral
+    provider_model: "mistral-large-latest"
+    tier: sonnet
+
+# --- Routing rules ------------------------------------------------------
+routing:
+  default_model: "deepseek-v4-pro"
+
+  # Tier mapping (for smart routing when model="auto")
+  tiers:
+    haiku:
+      models: ["deepseek-v4-flash", "claude-haiku-4-5-20251001", "claude-haiku-4-5", "gpt-4o-mini", "mistral-small-latest"]
+    sonnet:
+      models: ["deepseek-v4-pro", "claude-sonnet-5", "gpt-4o", "openai/gpt-oss-120b", "mistral-large-latest"]
+    opus:
+      models: ["claude-fable-5", "claude-fable-4", "claude-opus-5", "claude-opus-4-8"]
+
+  # Smart routing heuristics
+  smart:
+    simple_max_chars: 3000       # Prompt < 3k chars → haiku
+    complex_tool_threshold: 3    # ≥3 tools → opus
+    default_tier: sonnet
+
+# --- Roundtable presets -------------------------------------------------
+roundtables:
+  default:
+    description: "Table ronde standard — 4 modèles + arbitre DeepSeek Pro"
+    analysts:
+      - "deepseek-v4-pro"
+      - "gpt-4o"
+      - "claude-sonnet-5"
+      - "openai/gpt-oss-120b"
+    arbitrator: "deepseek-v4-pro"
+    mode: "synthesize"           # synthesize | debate | vote
+
+  quick:
+    description: "Table ronde rapide — 2 modèles, pas d'arbitre"
+    analysts:
+      - "deepseek-v4-flash"
+      - "gpt-4o-mini"
+    arbitrator: null
+    mode: "debate"
+
+  regime-audit:
+    description: "Audit adversarial du Regime Detector — 4 analystes + arbitre Opus"
+    analysts:
+      - "deepseek-v4-pro"
+      - "claude-sonnet-5"
+      - "gpt-4o"
+      - "mistral-large-latest"
+      - "openai/gpt-oss-120b"
+    arbitrator: "claude-opus-4-8"
+    mode: "synthesize"
+
+# --- Server -------------------------------------------------------------
+server:
+  host: "127.0.0.1"
+  port: 8787
+  log_level: "info"

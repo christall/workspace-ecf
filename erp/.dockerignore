@@ -1,0 +1,6 @@
+node_modules
+db/erp.db
+db/erp.db-shm
+db/erp.db-wal
+.next
+.env.local

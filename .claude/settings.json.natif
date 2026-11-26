@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Bash(*)",
+      "mcp__atlassian__*"
+    ],
+    "defaultMode": "acceptEdits",
+    "ask": [
+      "mcp__atlassian__executeDestructive"
+    ]
+  },
+  "theme": "dark",
+  "worktree": {
+    "bgIsolation": "none"
+  },
+  "enableAllProjectMcpServers": true,
+  "env": {
+    "TEMPO_TOKEN_FILE": "/workspace/sources/Echanges_claude_code/api key-tempo jira.txt",
+    "TEMPO_API_BASE": "https://api.eu.tempo.io/4",
+    "TEMPO_AUTHOR_ACCOUNT_ID": "712020:de7e6bc4-4979-480c-9939-59df840ca76b"
+  }
+}

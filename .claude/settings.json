@@ -1,0 +1,49 @@
+{
+  "model": "claude-sonnet-5",
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Bash(*)",
+      "mcp__atlassian__*"
+    ],
+    "defaultMode": "acceptEdits",
+    "ask": [
+      "mcp__atlassian__executeDestructive"
+    ]
+  },
+  "theme": "dark",
+  "worktree": {
+    "bgIsolation": "none"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mkdir -p /root/.ssh-github && cp -f /workspace/.secrets-ssh/workspace-ecf_ed25519 /root/.ssh-github/workspace-ecf_ed25519 && chmod 600 /root/.ssh-github/workspace-ecf_ed25519"
+          }
+        ]
+      }
+    ]
+  },
+  "env": {
+    "TZ": "Europe/Paris",
+    "ANTHROPIC_MODEL": "claude-sonnet-5",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-5",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-5",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "CLAUDE_CODE_EFFORT_LEVEL": "max",
+    "TEMPO_TOKEN_FILE": "/workspace/sources/Echanges_claude_code/api key-tempo jira.txt",
+    "TEMPO_API_BASE": "https://api.eu.tempo.io/4",
+    "TEMPO_AUTHOR_ACCOUNT_ID": "712020:de7e6bc4-4979-480c-9939-59df840ca76b"
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "node ~/.claude/statusline.js"
+  },
+  "enableAllProjectMcpServers": true
+}

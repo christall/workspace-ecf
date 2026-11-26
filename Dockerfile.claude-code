@@ -1,0 +1,16 @@
+# Dockerfile — Contexte d'exécution Claude Code
+# Base temporaire : snapshot docker commit (claude-session-save)
+# Rebuild : claude.bat default build
+FROM claude-session-save
+
+# apt, npm (claude-code, pnpm), ttyd et .tmux.conf sont déjà présents dans le snapshot
+
+ENV CLAUDE_DANGEROUSLY_SKIP_PERMISSIONS=1
+ENV PNPM_STORE_DIR=/pnpm-store
+ENV npm_config_cache=/root/.npm
+ENV LANG=fr_FR.UTF-8
+ENV LC_ALL=fr_FR.UTF-8
+WORKDIR /workspace
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+# CMD ["docker-entrypoint.sh"]

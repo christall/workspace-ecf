@@ -1,0 +1,103 @@
+# Dossiers sources (ont leur propre git)
+sources/
+
+# Jetons et secrets locaux (motifs ancrés — jamais dans git)
+/.cloudflare-token
+/*.token
+/*-token
+/routeur/.env
+
+# Logs WAMP
+logs_wamps/
+
+# Fichiers sensibles
+.credentials.json
+.claude.json
+
+# Archives binaires
+*.zip
+*.tar.gz
+*.bundle
+
+# Pages sauvegardées par erreur depuis un navigateur (Ctrl+S sur view-source:)
+view-source_*.html
+
+# Store pnpm (doit être hors Google Drive, monté en C:\pnpm-store)
+.pnpm-store/
+
+# Données Claude Code volumineuses ou régénérables (racine)
+backups/
+cache/
+file-history/
+sessions/
+/projects/
+/plugins/
+.local/
+.npm/
+history.jsonl
+
+# Données Claude Code volumineuses dans .claude/
+# (on garde : projects/*/memory/=mémoire, plans/, settings.json, settings.local.json)
+.claude/backups/
+.claude/cache/
+.claude/file-history/
+.claude/history.jsonl
+.claude/plugins/
+.claude/session-env/
+.claude/sessions/
+.claude/shell-snapshots/
+.claude/projects/**/*.jsonl
+.claude/projects/**/subagents/
+.claude/projects/**/tool-results/
+
+# Backups de settings (peuvent contenir des jetons d'environnement)
+.claude/settings.json.routeur
+.claude/settings.json.deepseek
+
+# Settings local de la machine (autoMemoryDirectory + surcharges locales, jamais dans git)
+.claude/settings.local.json
+
+# Artefacts python
+**/__pycache__/
+/routeur/.venv/
+/routeur/*.log
+
+# État du daemon PM2 (logs/pids régénérables)
+.pm2/
+
+# Logs régénérables
+nevea_scan_production/*.log
+
+# Credentials réels — jamais dans git (le template doit être vidé puis copié en .env.import.local)
+/erp/.env.import
+
+# Historiques de commandes — peuvent contenir des identifiants, jamais dans git
+/.bash_history
+/.mysql_history
+
+# .env réels (templates .env.example autorisés) — fuite constatée sur voice-bridge/.env le 30/10/2026
+.env
+
+# Exception : voice-bridge/.env ne contient plus de secret depuis le 30/10/2026,
+# juste CREDENTIALS_FILE qui pointe vers un fichier monté hors Drive/git (voir
+# claude.bat et voice-bridge/CLAUDE.md § Secrets hors Drive/git)
+!voice-bridge/.env
+
+# Caches/archives entrés par accident (ex: .cache/ffmpeg-static-nodejs, 29 Mo, retiré de l'historique le 30/10/2026)
+.cache/
+
+# Bases SQLite — changent à chaque commit, gonflent l'historique sans valeur de version (retirées de l'historique le 30/10/2026)
+# erp/db/erp.db réintégré le 30/10/2026 (décision Christophe : pas d'autre backup pour cette base de dev)
+/tra_live.db
+/tra_analysis.db
+
+# Clé SSH dédiée au remote externe (GitHub) — jamais dans git
+# Clé API opencode déposée par Christophe le 23/11/2026 (passerelle
+# opencode.ai/inference/openai/v1). Jamais dans git — la valeur vit dans le
+# .env du thème sur la VM, ce fichier n'est qu'un canal de transmission.
+/forum/opencode-api-key.txt
+
+/.secrets-ssh/
+
+# Identifiants Backblaze B2 (sauvegarde restic du forum) — jamais dans git
+/.secrets-backblaze/

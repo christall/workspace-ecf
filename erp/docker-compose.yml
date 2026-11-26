@@ -1,0 +1,19 @@
+services:
+  erp:
+    build: .
+    ports:
+      - "3003:3000"
+    environment:
+      - NODE_ENV=development
+      - LIBSQL_URL=file:/app/db/erp.db
+      - JWT_SECRET=${JWT_SECRET:-erp-cerca-demo-secret-2026}
+    volumes:
+      - ./app:/app/app                    # code hot-reload
+      - ./components:/app/components
+      - ./lib:/app/lib
+      - ./db:/app/db                      # base SQLite + scripts
+      - erp_deps:/app/node_modules        # node_modules hors Drive
+    restart: unless-stopped
+
+volumes:
+  erp_deps:
